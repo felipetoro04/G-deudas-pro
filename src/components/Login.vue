@@ -1,8 +1,8 @@
 <template>
   <div id="login">
-    <h1>Mi App</h1>
+    <h1>G-DEUDAS</h1>
 
-    <img alt="Vue logo" class="logo" src="../assets/logo.png">
+    <img alt="Vue logo" class="logo" src="../assets/images/logo.png">
     <form action="/Home" method="GET" class="login-form">
       <div class="container">
 

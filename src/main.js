@@ -5,6 +5,7 @@ import App from './App.vue'
 import VueRouter from 'vue-router'; //Importamos librería para rutas
 import Login from './components/Login.vue'; //importamos nuestros componentes a utilizar
 import home from './components/Home.vue';
+import poli_priv from './components/poli_priv'
 
 
 Vue.config.productionTip = false
@@ -12,9 +13,10 @@ Vue.config.productionTip = false
 Vue.use(VueRouter); //Decimos a vue que vamos a utilizar la libreria instalada
 
 const routes = [  //Definimos los path y donde nos llevará cada uno
+    { path: '/',component:Login},
     { path: '/Login/:id?', name: 'Login', component: Login },  //parámetro opcional (?), para que sea obligatorio se debe quitar el simbolo de pregunta
     { path: '/home', component: home },
-    { path: '/', component: home },  //ruta base
+    { path: '/Politicas_de_privacidad', component: poli_priv },
 
 ]
 
@@ -28,3 +30,4 @@ new Vue({
     router, //agremos el objeto router a la instancia de Vue para que sea global
     render: h => h(App),
 }).$mount('#app')
+

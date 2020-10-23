@@ -85,11 +85,19 @@ name: "Cuerpo"
 </script>
 
 <style scoped>
+
+
+#Body {
+  padding-left: 30%;
+  border: solid 1px #000000;
+
+  }
 .table tr,th{
   border: 1px solid black;
   padding: 15px;
   text-align: center;
 }
+
 
 
 

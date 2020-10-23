@@ -1,16 +1,13 @@
 <template>
   <div id="bar">
     <div class="logo">
-      <img class="logo" src="assets/images/g-deudas.png" alt="logo">
+      <img src="../assets/images/logo.png">
     </div>
-    <div class="search">
-      <p><label>Ingresa atributo de busqueda: <input type="text" name="busqueda"></label><button>Search</button></p>
-    </div>
-    <div class="links">
+  <div class="links">
     <ul>
-      <li><button>Inicio</button></li>
-      <li><button>Nosotros</button></li>
-      <li><button>Politicas de Privacidad</button></li>
+      <li><router-link to="/home">Inicio</router-link></li>
+      <li><router-link to="/Politicas_de_privacidad">Nosotros</router-link></li>
+      <li><router-link to="/Politicas_de_privacidad">Politicas de privacidad</router-link></li>
       </ul>
     </div>
   </div>
@@ -19,16 +16,51 @@
 
 <script>
 export default {
-name: "BarraNav"
-}
+name: "BarraNav",
+  }
+
 </script>
 
-<style scoped>
-.logo {
-   }
-.search{
+<style>
+
+#bar img{
+  float: left;
+  width: 55px;
+  height: 55px;
+  border: solid 1px #000000;
 }
-.links{
+
+#bar .links{
+  font-size: x-large;
+  overflow: auto;
+  border: solid 1px #000000;
+  }
+
+#bar .links ul {
+
+  list-style-type: none;
+  margin: 0;
+  padding-left: 40%;
+  overflow: hidden;
+  }
+
+#bar .links li {
+  float: left;
+  background-color: mediumslateblue;
 }
+
+#bar .links li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+#bar .links li a:hover {
+  background-color: steelblue;
+}
+
 
 </style>

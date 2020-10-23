@@ -1,32 +1,19 @@
 <template>
   <div id="lateral">
-    <ul class="acorh">
-      <li><a href="Creacion">Creacion de Boleta</a>
-        <ul>
-          <li><a href="Crear">Crear Boleta</a></li>
-          </ul>
-      </li>
-      <li><a href="Actualizacion">Actualizacion Boleta</a>
-        <ul>
-          <li><a href="Actualizar">actualizar boleta</a></li>
-        </ul>
-      </li>
-      <li><a href="ConsultaBoletas">Consultas sobre Boletas</a>
-        <ul>
-          <li><a href="ConsultaInstitucion">Por Institucion</a></li>
-          <li><a href="ConsultaEmision">Por Mes de Emision</a></li>
-          <li><a href="ConsultaVencimiento">Por Mes de Vencimiento</a></li>
-          <li><a href="ConsultaEstado">Por Estado</a></li>
-        </ul>
-      </li>
-      <li><a href="Configuracion">Configuracion Cuenta</a>
-        <ul>
-          <li><a href="Dpersonales">Datos personales</a></li>
-        </ul>
-      </li>
-      <li><a href="CerrarSesion">Cerrar Sesion</a>
-      </li>
+    <nav>
+    <ul>
+      <li><a href="#">Creacion de Boleta</a></li>
+      <li><a href="#">Actualizacion Boleta</a></li>
+      <li><a href="#">Consultas sobre Boletas</a><ul>
+        <li><a href="#">Por Institucion</a></li>
+        <li><a href="#">Por Mes de Emision</a></li>
+        <li><a href="#">Por Mes de Vencimiento</a></li>
+        <li><a href="#">Por Estado</a></li>
+      </ul></li>
+      <li><router-link to="/login">Cerrar sesion</router-link></li>
+
     </ul>
+    </nav>
 </div>
 </template>
 
@@ -38,61 +25,55 @@ name: "BarraLateral"
 
 <style scoped>
 #lateral{
-  width: 20%;
+  float: left;
+  padding-top: 40px;
+}
+
+#lateral *{
+  font-size: x-large;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+li{
+  list-style-type:none;
+  position:relative;
+  width:220px;
+}
+
+li a{
+  text-decoration:none;
+  display:inline-block;
+  padding:5px 10px;
+  width:260px;
+  height:50px;
+  border:1px solid mediumslateblue;
+  color:#fff;
+  background-color: mediumslateblue;
+}
+
+li a:hover{
+  background-color: steelblue;
 
 }
-ul.acorh,
-ul.acorh * {
-  margin: 0;
-  padding: 0;
-  border: 0;
+li ul ul li a{
+  background-color: steelblue;
 }
-ul.acorh {
-  margin: 10px auto;
-  padding: 0;
-  list-style: none;
-  width: 100%;
-  font-size: 18px;
+.more{
+  display:inline-block;
+  float: left;
+  right:0px;
+  font-size:30px;
 }
-ul.acorh li {
-  list-style: none;
+
+nav li ul{
+  display:none;
+  position:absolute;
+  top:0px;
+  left:260px;
 }
-ul.acorh li a {
-  display: block;
-  padding: 10px 10px 10px 20px;
-  background: #333;
-  color: #eee;
-  border-bottom: 1px solid #000;
-  border-top: 1px solid #666;
-  text-decoration: none;
-  box-sizing: border-box;
-}
-ul.acorh li ul {
-  max-height: 0;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-  overflow: hidden;
-  transition: .3s all ease-in;
-}
-ul.acorh li li a {
-  padding: 10px 10px 10px 40px;
-  background: #999;
-  color: #000;
-  font-size: 16px;
-  border: 0;
-  border-bottom: 1px solid #ccc;
-  box-sizing: border-box;
-}
-ul.acorc li li:last-child a {
-  border-bottom: 0;
-}
-ul.acorh li:hover ul {
-  max-height: 300px;
-  transition: .3s all ease-in;
-}
-ul.acorh li a:hover {
-  background: #666;
-  color: #fff;
+
+nav li:hover ul{display:block;
 }
 </style>
