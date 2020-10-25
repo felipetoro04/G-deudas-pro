@@ -1,66 +1,104 @@
 <template>
   <div id="bar">
-    <div class="logo">
-      <img src="../assets/images/logo.png">
-    </div>
-  <div class="links">
-    <ul>
-      <li><router-link to="/home">Inicio</router-link></li>
-      <li><router-link to="/Politicas_de_privacidad">Nosotros</router-link></li>
-      <li><router-link to="/Politicas_de_privacidad">Politicas de privacidad</router-link></li>
-      </ul>
-    </div>
+    <nav><ul>
+      <li><button>Inicio</button></li>
+      <li><button>Quiénes somos</button><ul>
+      <li><router-link to="/Politicas_de_privacidad"><button>Politicas de Privacidad</button></router-link></li>
+      </ul></li>
+      <li ><button>Creacion de Boleta</button></li>
+      <li><button>Actualizacion Boleta</button></li>
+      <li><button>Eliminar Boleta</button></li>
+      <li><button>Consultas sobre Boletas</button><ul>
+        <li><button>Por Institucion</button></li>
+        <li><button>Por Mes de Emision</button></li>
+        <li><button>Por Mes de Vencimiento</button></li>
+        <li><button>Por Estado</button></li>
+      </ul></li>
+      <li><router-link to="/login"><button>Cerrar sesion</button></router-link></li>
+
+    </ul></nav>
   </div>
 
 </template>
 
 <script>
 export default {
-name: "BarraNav",
-  }
+  name: "BarraNav",
+}
 
 </script>
 
 <style>
-
-#bar img{
-  float: left;
-  width: 55px;
-  height: 55px;
-  border: solid 1px #000000;
+#bar *{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-size:0;
 }
-
-#bar .links{
-  font-size: x-large;
-  overflow: auto;
-  border: solid 1px #000000;
-  }
-
-#bar .links ul {
-
-  list-style-type: none;
-  margin: 0;
-  padding-left: 40%;
-  overflow: hidden;
-  }
-
-#bar .links li {
-  float: left;
-  background-color: mediumslateblue;
-}
-
-#bar .links li a {
-  display: block;
-  color: white;
+#bar nav button{
   text-align: center;
-  padding: 14px 16px;
-  text-decoration: none;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 10px;
+
+  position: relative;
+  background-color: mediumslateblue;
+  border: none;
+  color: #fff;
+  padding: 20px;
+  width: 200px;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #193047;
+  border-radius: 4px;
 }
 
-/* Change the link color to #111 (black) on hover */
-#bar .links li a:hover {
-  background-color: steelblue;
+
+#bar nav li{
+  display:inline-block;
+  border:none;
+  text-align:center;
+  position:relative;
 }
 
+#bar nav button:hover{
+  background: #fff;
+  box-shadow: 0px 2px 10px 5px #1abc9c;
+  color: #000;
+  cursor: pointer;
+
+}
+#bar nav button:after{
+  content: "";
+  background: #1abc9c;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+
+}
+#bar nav button:active:after{
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+#bar nav button:focus{outline:0;}
+
+#bar nav li>ul{
+  display: none;
+}
+
+#bar nav li:hover>ul{
+  display:block;
+  position:absolute;
+  top:50px;
+  left:0px;
+}
 
 </style>
+

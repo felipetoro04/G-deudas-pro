@@ -1,6 +1,8 @@
 <template>
 <div id="Politicas">
+  <div class="buttonFooter">
   <router-link to="/home"><button>Volver</button></router-link>
+  </div>
   <h1>POLÍTICA DE PRIVACIDAD</h1>
   <p>
     El presente Política de Privacidad establece los términos en que G-Deudas usa y protege la información
@@ -66,9 +68,9 @@
 
     G-Deudas Se reserva el derecho de cambiar los términos de la presente Política de Privacidad en cualquier momento.
   </p>
-
-
-
+  <div class="buttonHeader">
+    <router-link to="/home"><button>Volver</button></router-link>
+  </div>
 </div>
 </template>
 
@@ -79,5 +81,8 @@ name: "poli_priv"
 </script>
 
 <style scoped>
+#Politicas *{
+  text-align: center;
+}
 
 </style>
