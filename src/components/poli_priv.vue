@@ -1,8 +1,6 @@
 <template>
 <div id="Politicas">
-  <div class="buttonFooter">
-  <router-link to="/home"><button>Volver</button></router-link>
-  </div>
+  <barra-nav></barra-nav>
   <h1>POLÍTICA DE PRIVACIDAD</h1>
   <p>
     El presente Política de Privacidad establece los términos en que G-Deudas usa y protege la información
@@ -75,8 +73,10 @@
 </template>
 
 <script>
+import BarraNav from "@/components/barnav";
 export default {
-name: "poli_priv"
+name: "poli_priv",
+  components: {BarraNav}
 }
 </script>
 

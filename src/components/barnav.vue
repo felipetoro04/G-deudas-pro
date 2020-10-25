@@ -1,7 +1,7 @@
 <template>
   <div id="bar">
     <nav><ul>
-      <li><button>Inicio</button></li>
+      <li><router-link to="/home"><button>Inicio</button></router-link></li>
       <li><button>Quiénes somos</button><ul>
       <li><router-link to="/Politicas_de_privacidad"><button>Politicas de Privacidad</button></router-link></li>
       </ul></li>

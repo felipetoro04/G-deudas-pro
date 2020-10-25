@@ -1,4 +1,6 @@
 <template>
+
+
   <div id="login">
   <form method="post">
     <div class="imgcontainer">
@@ -29,8 +31,10 @@
 </template>
 
 <script>
+
 export default {
   name: 'Login',
+
 }
 </script>
 <style>
