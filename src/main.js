@@ -7,6 +7,7 @@ import Login from './components/Login.vue'; //importamos nuestros componentes a 
 import home from './components/Home.vue';
 import poli_priv from './components/poli_priv'
 import registroUser from "@/components/registroUser";
+import creacionBoleta from "@/components/creacionBoleta";
 
 
 Vue.config.productionTip = false
@@ -18,7 +19,9 @@ const routes = [  //Definimos los path y donde nos llevará cada uno
     { path: '/Login/:id?', name: 'Login', component: Login },  //parámetro opcional (?), para que sea obligatorio se debe quitar el simbolo de pregunta
     { path: '/home', component: home },
     { path: '/Politicas_de_privacidad', component: poli_priv },
-    { path: '/Registro', component: registroUser}
+    { path: '/Registro', component: registroUser},
+    { path: '/Creacion', component: creacionBoleta}
+
 ]
 
 //Creamos el objeto vuerouter

@@ -5,7 +5,7 @@
       <li><button>Quiénes somos</button><ul>
       <li><router-link to="/Politicas_de_privacidad"><button>Politicas de Privacidad</button></router-link></li>
       </ul></li>
-      <li ><button>Creacion de Boleta</button></li>
+      <li ><router-link to="/Creacion"><button>Creacion de Boleta</button></router-link></li>
       <li><button>Actualizacion Boleta</button></li>
       <li><button>Eliminar Boleta</button></li>
       <li><button>Consultas sobre Boletas</button><ul>
