@@ -1,11 +1,9 @@
 <template>
 
   <div id="creacionBoleta" class="container">
-    <Vue></Vue>
-
-          <!-- Formulario para añadir pacientes -->
       <section class="form">
         <form action="" class="text-center">
+
         <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion">
           <input v-model="NumeroBoleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Numero de Boleta">
           <input v-model="imagen_Boleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Boleta">
@@ -14,10 +12,7 @@
           <input v-model="FechaV" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Fecha de Vencimiento">
           <input v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado">
 
-          <!--<input id="image" v-on:change="imagen_Boleta" type="file"> -->
-                <!-- Botón para añadir -->
-
-          <button v-on:click="Creacion"> agregar</button>
+          <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
         </form>
       </section>
 
@@ -36,8 +31,8 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(boleta) in Boletas" v-bind:key="boleta.id">
-            <td>{{boleta.id}}</td>
+          <tr v-for="(boleta) in Boletas" v-bind:key = "boleta.id">
+            <td>{{boleta.Institucion}}</td>
           </tr>
           </tbody>
         </table>
@@ -47,22 +42,26 @@
 </template>
 
 <script>
-import Vue from 'vue'
-export default {
-name: "Cuerpo"
-}
-// eslint-disable-next-line no-undef
-  new Vue({
-    el: '#body',
-        data: {
-      Institucion: '',NumeroBoleta: '',imagen_Boleta: '',monto:'', FechaE:'', FechaV:'',Estado:'',
 
-      // Lista de boletas
+export default {
+    name: "Cuerpo",
+    el: '#creacionBoleta',
+  data() {
+    return {
+      Institucion: '',
+      NumeroBoleta: '',
+      imagen_Boleta: '',
+      monto: '',
+      FechaE: '',
+      FechaV: '',
+      Estado: '',
       Boletas: []
-    },
-    methods: {
+    };
+  },
+     methods: {
       Creacion: function () {
         this.Boletas.push({
+          Id: this.Id,
           Institucion: this.Institucion,
           NumeroBoleta: this.NumeroBoleta,
           imagen_Boleta: this.imagen_Boleta,
@@ -81,7 +80,8 @@ name: "Cuerpo"
         this.Estado = '';
       },
     },
-  });
+
+}
 
 
 </script>
