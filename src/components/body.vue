@@ -3,14 +3,18 @@
   <div id="creacionBoleta" class="container">
       <section class="form">
         <form action="" class="text-center">
-
-        <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion">
-          <input v-model="NumeroBoleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Numero de Boleta">
-          <input v-model="imagen_Boleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Boleta">
-          <input v-model="monto" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Monto a Cancelar">
-          <input v-model="FechaE" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Fecha de Emisión">
-          <input v-model="FechaV" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Fecha de Vencimiento">
-          <input v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado">
+          <label>Ingresa Institucion</label><br>
+          <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion" name="Institucion"><br>
+          <label> Ingresa Numero de Boleta</label><br>
+          <input v-model="NumeroBoleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Numero de Boleta"><br>
+          <label>Ingresa Monto a Cancelar</label><br>
+          <input v-model="monto" @keyup.enter="Creacion" type="number" class="form-control" placeholder="Monto a Cancelar"><br>
+          <label>Ingresa Fecha de Emisión</label><br>
+          <input v-model="FechaE" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Emisión"><br>
+          <label>Ingresa Fecha de Vencimiento</label><br>
+          <input v-model="FechaV" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Vencimiento"><br>
+          <label>Selecciona Estado</label><br>
+          <input v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado"><br>
 
           <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
         </form>
@@ -23,7 +27,7 @@
           <tr>
             <th scope="col">Institucion</th>
             <th scope="col">Numero de Boleta</th>
-            <th scope="col">Boleta</th>
+            <th scope="col" type="image">Boleta </th>
             <th scope="col">Monto a Cancelar</th>
             <th scope="col">Fecha de Emisión</th>
             <th scope="col">Fecha de Vencimiento</th>
@@ -31,9 +35,16 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(boleta) in Boletas" v-bind:key = "boleta.id">
+          <tr v-for="(boleta,id) in Boletas" :key="id">
             <td>{{boleta.Institucion}}</td>
+            <td>{{boleta.NumeroBoleta}}</td>
+            <td><input class="seleccionarIMG"  v-on:change="imagen_Boleta"  type="file" accept="image/*"></td>
+            <td>{{boleta.monto}}</td>
+            <td>{{boleta.FechaE}}</td>
+            <td>{{boleta.FechaV}}</td>
+            <td>{{boleta.Estado}}</td>
           </tr>
+
           </tbody>
         </table>
     </section>
@@ -55,13 +66,13 @@ export default {
       FechaE: '',
       FechaV: '',
       Estado: '',
-      Boletas: []
+      Boletas: [],
+
     };
   },
      methods: {
       Creacion: function () {
         this.Boletas.push({
-          Id: this.Id,
           Institucion: this.Institucion,
           NumeroBoleta: this.NumeroBoleta,
           imagen_Boleta: this.imagen_Boleta,
@@ -79,6 +90,7 @@ export default {
         this.FechaV = '';
         this.Estado = '';
       },
+
     },
 
 }
@@ -97,6 +109,10 @@ export default {
 
 
 <style>
+.seleccionarIMG {
+  width:135px;
+  text-align: center;
+}
 #creacionBoleta{
   padding-top: 150px;
 }
