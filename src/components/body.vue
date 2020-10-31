@@ -1,68 +1,104 @@
 <template>
-  <div id="tabla">
-    <table >
-    <caption>Ultimos Movimientos</caption>
-    <thead>
-    <tr>
-      <th scope="col">Institucion</th>
-      <th scope="col">Numero de Boleta</th>
-      <th scope="col">Boleta</th>
-      <th scope="col">Monto a Cancelar</th>
-      <th scope="col">Fecha de Emisión</th>
-      <th scope="col">Fecha de Vencimiento</th>
-      <th scope="col">Estado</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td data-label="Institucion">CGE</td>
-      <td data-label="Numero de Boleta">181273162371263</td>
-      <td data-label="Boleta"><input type="image" src="" alt="Submit"></td>
-      <td data-label="Monto a Cancelar">$20.000</td>
-      <td data-label="Fecha de Emisión">10/01/2020</td>
-      <td data-label="Fecha de Vencimiento">10/31/2020</td>
-      <td data-label="Estado">ACTIVO</td>
-    </tr>
-    <tr>
-      <td data-label="Institucion">CGE</td>
-      <td data-label="Numero de Boleta">222992929</td>
-      <td data-label="Boleta"><input type="image" src="" alt="Submit"></td>
-      <td data-label="Monto a Cancelar">$20.000</td>
-      <td data-label="Fecha de Emisión">10/01/2020</td>
-      <td data-label="Fecha de Vencimiento">10/31/2020</td>
-      <td data-label="Estado">ACTIVO</td>
-    </tr>
-    <tr>
-      <td data-label="Institucion">CGE</td>
-      <td data-label="Numero de Boleta">23465465465</td>
-      <td data-label="Boleta"><input type="image" src="" alt="Submit"></td>
-      <td data-label="Monto a Cancelar">$20.000</td>
-      <td data-label="Fecha de Emisión">10/01/2020</td>
-      <td data-label="Fecha de Vencimiento">10/31/2020</td>
-      <td data-label="Estado">ACTIVO</td>
-    </tr>
-    <tr>
-      <td data-label="Institucion">CGE</td>
-      <td data-label="Numero de Boleta">4564565</td>
-      <td data-label="Boleta"><input type="image" src="" alt="Submit"></td>
-      <td data-label="Monto a Cancelar">$20.000</td>
-      <td data-label="Fecha de Emisión">10/01/2020</td>
-      <td data-label="Fecha de Vencimiento">10/31/2020</td>
-      <td data-label="Estado">ACTIVO</td>
-    </tr>
-    </tbody>
-  </table>
+
+  <div id="creacionBoleta" class="container">
+    <Vue></Vue>
+
+          <!-- Formulario para añadir pacientes -->
+      <section class="form">
+        <form action="" class="text-center">
+        <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion">
+          <input v-model="NumeroBoleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Numero de Boleta">
+          <input v-model="imagen_Boleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Boleta">
+          <input v-model="monto" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Monto a Cancelar">
+          <input v-model="FechaE" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Fecha de Emisión">
+          <input v-model="FechaV" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Fecha de Vencimiento">
+          <input v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado">
+
+          <!--<input id="image" v-on:change="imagen_Boleta" type="file"> -->
+                <!-- Botón para añadir -->
+
+          <button v-on:click="Creacion"> agregar</button>
+        </form>
+      </section>
+
+    <section class="data">
+        <table >
+          <caption>Ultimos Movimientos</caption>
+          <thead>
+          <tr>
+            <th scope="col">Institucion</th>
+            <th scope="col">Numero de Boleta</th>
+            <th scope="col">Boleta</th>
+            <th scope="col">Monto a Cancelar</th>
+            <th scope="col">Fecha de Emisión</th>
+            <th scope="col">Fecha de Vencimiento</th>
+            <th scope="col">Estado</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr v-for="(boleta) in Boletas" v-bind:key="boleta.id">
+            <td>{{boleta.id}}</td>
+          </tr>
+          </tbody>
+        </table>
+    </section>
     </div>
+
 </template>
 
 <script>
+import Vue from 'vue'
 export default {
 name: "Cuerpo"
 }
+// eslint-disable-next-line no-undef
+  new Vue({
+    el: '#body',
+        data: {
+      Institucion: '',NumeroBoleta: '',imagen_Boleta: '',monto:'', FechaE:'', FechaV:'',Estado:'',
+
+      // Lista de boletas
+      Boletas: []
+    },
+    methods: {
+      Creacion: function () {
+        this.Boletas.push({
+          Institucion: this.Institucion,
+          NumeroBoleta: this.NumeroBoleta,
+          imagen_Boleta: this.imagen_Boleta,
+          monto: this.monto,
+          FechaE: this.FechaE,
+          FechaV: this.FechaV,
+          Estado: this.Estado,
+        });
+        // Vaciamos el formulario de añadir
+        this.Institucion = '';
+        this.NumeroBoleta = '';
+        this.imagen_Boleta = '';
+        this.monto = '';
+        this.FechaE = '';
+        this.FechaV = '';
+        this.Estado = '';
+      },
+    },
+  });
+
+
 </script>
+
+
+
+
+
+
+
+
+
+
+
 <style>
-#tabla{
-  padding-top: 100px;
+#creacionBoleta{
+  padding-top: 150px;
 }
 table {
   font-family: "Open Sans", sans-serif;
