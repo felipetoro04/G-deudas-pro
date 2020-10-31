@@ -17,6 +17,7 @@
       <li><router-link to="/login"><button>Cerrar sesion</button></router-link></li>
 
     </ul></nav>
+
   </div>
 
 </template>

@@ -1,20 +1,24 @@
 <template>
 
   <div id="creacionBoleta" class="container">
-      <section class="form">
+      <section class="form" >
         <form action="" class="text-center">
-          <label>Ingresa Institucion</label><br>
+          <label><b>Ingresa Institucion</b></label><br>
           <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion" name="Institucion"><br>
-          <label> Ingresa Numero de Boleta</label><br>
+          <label><b>Ingresa Numero de Boleta</b></label><br>
           <input v-model="NumeroBoleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Numero de Boleta"><br>
-          <label>Ingresa Monto a Cancelar</label><br>
-          <input v-model="monto" @keyup.enter="Creacion" type="number" class="form-control" placeholder="Monto a Cancelar"><br>
-          <label>Ingresa Fecha de Emisión</label><br>
+          <label><b>Ingresa Monto a Cancelar</b></label><br>
+          $<input v-model="monto" @keyup.enter="Creacion" type="number" class="form-control" placeholder="Monto a Cancelar"><br>
+          <label><b>Ingresa Fecha de Emisión</b></label><br>
           <input v-model="FechaE" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Emisión"><br>
-          <label>Ingresa Fecha de Vencimiento</label><br>
+          <label><b>Ingresa Fecha de Vencimiento</b></label><br>
           <input v-model="FechaV" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Vencimiento"><br>
-          <label>Selecciona Estado</label><br>
-          <input v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado"><br>
+          <label><b>Selecciona Estado</b></label><br>
+          <select v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado">
+            <option value="Activo">Activo</option>
+            <option value="Vencida">Vencida</option>
+          </select><br>
+
 
           <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
         </form>
@@ -109,12 +113,26 @@ export default {
 
 
 <style>
+.form{
+  font-family: "Open Sans", sans-serif;
+  text-align: center;
+  margin: .5em 0 .75em;
+  }
+.form label,input,select,option{
+  text-align: center;
+  line-height: 1.25;
+  padding: .625em;
+  width: 30%;
+  border-bottom: 3px solid #ddd;
+   margin-bottom: .625em
+
+}
 .seleccionarIMG {
   width:135px;
   text-align: center;
 }
 #creacionBoleta{
-  padding-top: 150px;
+  padding-top: 70px;
 }
 table {
   font-family: "Open Sans", sans-serif;
