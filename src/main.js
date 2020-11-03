@@ -7,7 +7,7 @@ import Login from './components/Login.vue'; //importamos nuestros componentes a 
 import home from './components/Home.vue';
 import poli_priv from './components/poli_priv'
 import registroUser from "@/components/registroUser";
-
+import consultas from "@/components/consultas";
 
 
 
@@ -21,7 +21,7 @@ const routes = [  //Definimos los path y donde nos llevará cada uno
     { path: '/home', component: home },
     { path: '/Politicas_de_privacidad', component: poli_priv },
     { path: '/Registro', component: registroUser},
-
+    { path: '/Consultas', component: consultas},
 
 ]
 

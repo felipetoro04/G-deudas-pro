@@ -1,5 +1,6 @@
 <template>
 <div id="Politicas">
+
   <barra-nav></barra-nav>
   <h1>POLÍTICA DE PRIVACIDAD</h1>
   <p>

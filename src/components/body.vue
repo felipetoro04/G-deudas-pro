@@ -1,5 +1,4 @@
 <template>
-
   <div id="creacionBoleta" class="container">
       <section class="form" >
         <form action="" class="text-center">
@@ -18,17 +17,15 @@
             <option value="Activo">Activo</option>
             <option value="Vencida">Vencida</option>
           </select><br>
-
-
           <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
         </form>
       </section>
-
     <section class="data">
         <table >
           <caption>Ultimos Movimientos</caption>
           <thead>
           <tr>
+            <th scope="col">id</th>
             <th scope="col">Institucion</th>
             <th scope="col">Numero de Boleta</th>
             <th scope="col" type="image">Boleta </th>
@@ -39,79 +36,157 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="(boleta,id) in Boletas" :key="id">
-            <td>{{boleta.Institucion}}</td>
-            <td>{{boleta.NumeroBoleta}}</td>
-            <td><input class="seleccionarIMG"  v-on:change="imagen_Boleta"  type="file" accept="image/*"></td>
-            <td>{{boleta.monto}}</td>
-            <td>{{boleta.FechaE}}</td>
-            <td>{{boleta.FechaV}}</td>
-            <td>{{boleta.Estado}}</td>
-          </tr>
+          <tr v-for="(boleta,index) in Boletas" :key="index">
+            <td>{{boleta.Id}}</td>
 
+
+            <td>
+              <span v-if="formActualizar && idActualizar == index">
+                <input v-model="InstitucionActualizar" type="text" class="form-control">
+              </span>
+              <span v-else>
+                {{boleta.Institucion}}
+              </span>
+            </td>
+            <td>
+              <span v-if="formActualizar && idActualizar == index">
+                <input v-model="NumeroBoletaActualizar" type="text" class="form-control">
+              </span>
+              <span v-else>
+                {{boleta.NumeroBoleta}}
+              </span>
+            </td>
+            <td>
+              <span v-if="formActualizar && idActualizar == index">
+                <input v-model="montoActualizar" type="text" class="form-control">
+              </span>
+              <span v-else>
+                {{boleta.monto}}
+              </span>
+            </td>
+            <td>
+              <span v-if="formActualizar && idActualizar == index">
+                <input v-model="FechaEActualizar" type="text" class="form-control">
+              </span>
+              <span v-else>
+                {{boleta.FechaE}}
+              </span>
+            </td>
+            <td>
+              <span v-if="formActualizar && idActualizar == index">
+                <input v-model="FechaVActualizar" type="text" class="form-control">
+              </span>
+              <span v-else>
+                {{boleta.FechaV}}
+              </span>
+            </td>
+            <td>
+              <span v-if="formActualizar && idActualizar == index">
+                <input v-model="EstadoActualizar" type="text" class="form-control">
+              </span>
+              <span v-else>
+                {{boleta.Estado}}
+              </span>
+            </td>
+
+
+
+
+            <td>
+              <!-- Botón para guardar la información actualizada -->
+              <span v-if="formActualizar && idActualizar == index">
+                <button @click="guardarActualizacion(index)" class="btn btn-success">Guardar</button>
+              </span>
+              <span v-else>
+                <!-- Botón para mostrar el formulario de actualizar -->
+                <button @click="verFormActualizar(index)" class="btn btn-warning">Actualizar</button>
+                <!-- Botón para borrar -->
+                <button @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
+              </span>
+            </td>
+
+
+
+          </tr>
           </tbody>
         </table>
     </section>
     </div>
-
 </template>
-
 <script>
 
 export default {
-    name: "Cuerpo",
-    el: '#creacionBoleta',
+  name: "Cuerpo",
+  el: '#creacionBoleta',
   data() {
     return {
+      Id: '',
       Institucion: '',
       NumeroBoleta: '',
-      imagen_Boleta: '',
       monto: '',
       FechaE: '',
       FechaV: '',
       Estado: '',
       Boletas: [],
-
+      formActualizar: false,
+      // La posición de tu lista donde te gustaría actualizar
+      idActualizar: -1,
+      InstitucionActualizar: '',
+      NumeroBoletaActualizar: '',
+      montoActualizar: '',
+      FechaEActualizar: '',
+      FechaVActualizar: '',
+      EstadoActualizar: '',
     };
   },
-     methods: {
-      Creacion: function () {
-        this.Boletas.push({
-          Institucion: this.Institucion,
-          NumeroBoleta: this.NumeroBoleta,
-          imagen_Boleta: this.imagen_Boleta,
-          monto: this.monto,
-          FechaE: this.FechaE,
-          FechaV: this.FechaV,
-          Estado: this.Estado,
-        });
-        // Vaciamos el formulario de añadir
-        this.Institucion = '';
-        this.NumeroBoleta = '';
-        this.imagen_Boleta = '';
-        this.monto = '';
-        this.FechaE = '';
-        this.FechaV = '';
-        this.Estado = '';
-      },
-
+  methods: {
+    Creacion: function () {
+      this.Boletas.push({
+        Id: + new Date(),
+        Institucion: this.Institucion,
+        NumeroBoleta: this.NumeroBoleta,
+        monto: this.monto,
+        FechaE: this.FechaE,
+        FechaV: this.FechaV,
+        Estado: this.Estado,
+      });
+      this.Institucion = '';
+      this.NumeroBoleta = '';
+      this.monto = '';
+      this.FechaE = '';
+      this.FechaV = '';
+      this.Estado = '';
     },
-
+    verFormActualizar: function (boleta_id) {
+      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
+      this.idActualizar = boleta_id;
+      this.InstitucionActualizar = this.Boletas[boleta_id].Institucion;
+      this.NumeroBoletaActualizar = this.Boletas[boleta_id].NumeroBoleta;
+      this.montoActualizar = this.Boletas[boleta_id].monto;
+      this.FechaEActualizar = this.Boletas[boleta_id].FechaE;
+      this.FechaVActualizar = this.Boletas[boleta_id].FechaV;
+      this.EstadoActualizar = this.Boletas[boleta_id].Estado;
+      // Mostramos el formulario
+      this.formActualizar = true;
+    },
+    borrarBoleta: function (boleta_id) {
+      // Borramos de la lista
+      this.Boletas.splice(boleta_id, 1);
+    },
+    guardarActualizacion: function (boleta_id) {
+      // Ocultamos nuestro formulario de actualizar
+      this.formActualizar = false;
+      // Actualizamos los datos
+      this.Boletas[boleta_id].Institucion = this.InstitucionActualizar;
+      this.Boletas[boleta_id].NumeroBoletaActualizar = this.NumeroBoleta;
+      this.Boletas[boleta_id].montoActualizar = this.monto;
+      this.Boletas[boleta_id].FechaEActualizar = this.FechaE;
+      this.Boletas[boleta_id].FechaVActualizar = this.FechaV;
+      this.Boletas[boleta_id].EstadoActualizar = this.Estado;
+    }
+  }
 }
-
-
 </script>
-
-
-
-
-
-
-
-
-
-
-
 <style>
 .form{
   font-family: "Open Sans", sans-serif;
@@ -127,10 +202,7 @@ export default {
    margin-bottom: .625em
 
 }
-.seleccionarIMG {
-  width:135px;
-  text-align: center;
-}
+
 #creacionBoleta{
   padding-top: 70px;
 }
@@ -217,4 +289,6 @@ table th {
     border-bottom: 0;
   }
 }
+
+
 </style>

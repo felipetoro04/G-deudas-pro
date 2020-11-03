@@ -67,7 +67,6 @@ export default {
   box-shadow: 0px 2px 10px 5px #1abc9c;
   color: #000;
   cursor: pointer;
-
 }
 #bar nav button:after{
   content: "";
