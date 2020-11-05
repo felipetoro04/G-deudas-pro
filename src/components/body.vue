@@ -28,7 +28,7 @@
             <th scope="col">id</th>
             <th scope="col">Institucion</th>
             <th scope="col">Numero de Boleta</th>
-            <th scope="col" type="image">Boleta </th>
+
             <th scope="col">Monto a Cancelar</th>
             <th scope="col">Fecha de Emisión</th>
             <th scope="col">Fecha de Vencimiento</th>
@@ -178,11 +178,11 @@ export default {
       this.formActualizar = false;
       // Actualizamos los datos
       this.Boletas[boleta_id].Institucion = this.InstitucionActualizar;
-      this.Boletas[boleta_id].NumeroBoletaActualizar = this.NumeroBoleta;
-      this.Boletas[boleta_id].montoActualizar = this.monto;
-      this.Boletas[boleta_id].FechaEActualizar = this.FechaE;
-      this.Boletas[boleta_id].FechaVActualizar = this.FechaV;
-      this.Boletas[boleta_id].EstadoActualizar = this.Estado;
+      this.Boletas[boleta_id].NumeroBoleta = this.NumeroBoletaActualizar;
+      this.Boletas[boleta_id].monto = this.montoActualizar;
+      this.Boletas[boleta_id].FechaE = this.FechaEActualizar;
+      this.Boletas[boleta_id].FechaV = this.FechaVActualizar;
+      this.Boletas[boleta_id].Estado = this.EstadoActualizar;
     }
   }
 }
