@@ -2,14 +2,14 @@
   <div id="bar">
     <nav><ul>
       <li><router-link to="/home"><button>Inicio</button></router-link></li>
-      <li><button>Quiénes somos</button><ul>
+      <li><router-link to="/Quienes_somos"><button>Quiénes somos</button></router-link><ul>
       <li><router-link to="/Politicas_de_privacidad"><button>Politicas de Privacidad</button></router-link></li>
       </ul></li>
       <li ><router-link to="/Creacion"><button>Creacion de Boleta</button></router-link></li>
       <li><button>Actualizacion Boleta</button></li>
       <li><button>Eliminar Boleta</button></li>
-      <li><button>Consultas sobre Boletas</button><ul>
-        <li><button>Por Institucion</button></li>
+      <li><router-link to="/Consultas"><button>Consultas sobre Boletas</button></router-link><ul>
+          <li><button>Por Institucion</button></li>
         <li><button>Por Mes de Emision</button></li>
         <li><button>Por Mes de Vencimiento</button></li>
         <li><button>Por Estado</button></li>

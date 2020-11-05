@@ -8,6 +8,7 @@ import home from './components/Home.vue';
 import poli_priv from './components/poli_priv'
 import registroUser from "@/components/registroUser";
 import consultas from "@/components/consultas";
+import q_somos from "@/components/q_somos";
 
 
 
@@ -22,6 +23,7 @@ const routes = [  //Definimos los path y donde nos llevará cada uno
     { path: '/Politicas_de_privacidad', component: poli_priv },
     { path: '/Registro', component: registroUser},
     { path: '/Consultas', component: consultas},
+    { path: '/Quienes_somos', component: q_somos}
 
 ]
 

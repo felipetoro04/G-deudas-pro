@@ -88,10 +88,6 @@
                 {{boleta.Estado}}
               </span>
             </td>
-
-
-
-
             <td>
               <!-- Botón para guardar la información actualizada -->
               <span v-if="formActualizar && idActualizar == index">
@@ -104,9 +100,6 @@
                 <button @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
               </span>
             </td>
-
-
-
           </tr>
           </tbody>
         </table>
