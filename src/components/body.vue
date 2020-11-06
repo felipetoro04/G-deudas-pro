@@ -92,12 +92,14 @@
               <!-- Botón para guardar la información actualizada -->
               <span v-if="formActualizar && idActualizar == index">
                 <button @click="guardarActualizacion(index)" class="btn btn-success">Guardar</button>
+                <button @click="CancelarButton(index)" class="btn btn-danger">Cancelar</button>
               </span>
               <span v-else>
                 <!-- Botón para mostrar el formulario de actualizar -->
                 <button @click="verFormActualizar(index)" class="btn btn-warning">Actualizar</button>
                 <!-- Botón para borrar -->
                 <button @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
+
               </span>
             </td>
           </tr>
@@ -135,7 +137,7 @@ export default {
   methods: {
     Creacion: function () {
       this.Boletas.push({
-        Id: + new Date(),
+        Id: +new Date(),
         Institucion: this.Institucion,
         NumeroBoleta: this.NumeroBoleta,
         monto: this.monto,
@@ -176,6 +178,9 @@ export default {
       this.Boletas[boleta_id].FechaE = this.FechaEActualizar;
       this.Boletas[boleta_id].FechaV = this.FechaVActualizar;
       this.Boletas[boleta_id].Estado = this.EstadoActualizar;
+    },
+    CancelarButton: function () {
+      this.formActualizar = false;
     }
   }
 }

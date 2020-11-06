@@ -1,5 +1,5 @@
  <template>
-    <div id="Politicas">
+    <div id="qsomos">
       <barra-nav></barra-nav>
       <h1>G-Deudas</h1>
       <p>
@@ -29,5 +29,7 @@ name: "q_somos"
 </script>
 
 <style scoped>
-
+#qsomos{
+  text-align: center;
+}
 </style>
