@@ -1,13 +1,15 @@
 <template>
+  <div>
+  <barra-nav :funcion="this.mostrarParrafo"/>
   <div id="creacionBoleta" class="container">
-      <section class="form" >
+         <section class="form" v-show="mostrar">
         <form action="" class="text-center">
           <label><b>Ingresa Institucion</b></label><br>
           <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion" name="Institucion"><br>
           <label><b>Ingresa Numero de Boleta</b></label><br>
           <input v-model="NumeroBoleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Numero de Boleta"><br>
           <label><b>Ingresa Monto a Cancelar</b></label><br>
-          $<input v-model="monto" @keyup.enter="Creacion" type="number" class="form-control" placeholder="Monto a Cancelar"><br>
+          <input v-model="monto" @keyup.enter="Creacion" type="number" class="form-control" placeholder="Monto a Cancelar"><br>
           <label><b>Ingresa Fecha de Emisión</b></label><br>
           <input v-model="FechaE" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Emisión"><br>
           <label><b>Ingresa Fecha de Vencimiento</b></label><br>
@@ -18,6 +20,7 @@
             <option value="Vencida">Vencida</option>
           </select><br>
           <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
+          <input  @click="ocultarParrafo" type="button" value="Cancelar" class="btn btn-success">
         </form>
       </section>
     <section class="data">
@@ -107,11 +110,14 @@
         </table>
     </section>
     </div>
+  </div>
 </template>
 <script>
 
+import BarraNav from "@/components/barnav";
 export default {
   name: "Cuerpo",
+  components: {BarraNav},
   el: '#creacionBoleta',
   data() {
     return {
@@ -132,6 +138,7 @@ export default {
       FechaEActualizar: '',
       FechaVActualizar: '',
       EstadoActualizar: '',
+      mostrar:false,
     };
   },
   methods: {
@@ -181,7 +188,13 @@ export default {
     },
     CancelarButton: function () {
       this.formActualizar = false;
-    }
+    },
+    mostrarParrafo(){
+      this.mostrar = true
+    },
+    ocultarParrafo(){
+      this.mostrar = false
+    },
   }
 }
 </script>

@@ -1,17 +1,18 @@
 <template>
 <div id="home">
-  <BarraNav></BarraNav>
+
+
   <Cuerpo></Cuerpo>
 </div>
 </template>
 
 <script>
 
-import BarraNav from "@/components/barnav";
+
 import Cuerpo from "@/components/body";
 export default {
 name: "home",
-  components: {Cuerpo, BarraNav},
+  components: {Cuerpo,},
 }
 
 </script>

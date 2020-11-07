@@ -5,17 +5,9 @@
       <li><router-link to="/Quienes_somos"><button>Quiénes somos</button></router-link><ul>
       <li><router-link to="/Politicas_de_privacidad"><button>Politicas de Privacidad</button></router-link></li>
       </ul></li>
-      <li ><router-link to="/Creacion"><button>Creacion de Boleta</button></router-link></li>
-      <li><button>Actualizacion Boleta</button></li>
-      <li><button>Eliminar Boleta</button></li>
-      <li><router-link to="/Consultas"><button>Consultas sobre Boletas</button></router-link><ul>
-          <li><button>Por Institucion</button></li>
-        <li><button>Por Mes de Emision</button></li>
-        <li><button>Por Mes de Vencimiento</button></li>
-        <li><button>Por Estado</button></li>
-      </ul></li>
+      <li><router-link to="/home"><button @click="funcion()">Creacion de Boleta</button></router-link></li>
+         <li><router-link to="/Consultas"><button>Consultas sobre Boletas</button></router-link></li>
       <li><router-link to="/login"><button>Cerrar sesion</button></router-link></li>
-
     </ul></nav>
 
   </div>
@@ -25,6 +17,9 @@
 <script>
 export default {
   name: "BarraNav",
+  props: {
+    funcion: Function
+  }
 }
 
 </script>
@@ -35,6 +30,7 @@ export default {
   padding:0;
   box-sizing:border-box;
   font-size:0;
+  text-align: center;
 }
 #bar nav button{
   text-align: center;

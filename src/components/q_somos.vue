@@ -23,8 +23,10 @@
 
 
 <script>
+import BarraNav from "@/components/barnav";
 export default {
-name: "q_somos"
+name: "q_somos",
+  components:{BarraNav}
 }
 </script>
 
