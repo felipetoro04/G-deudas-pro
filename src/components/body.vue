@@ -102,11 +102,11 @@
               </span>
               <span v-else >
                 <!-- Botón para mostrar el formulario de actualizar -->
-                <button v-show="mostrarM_E" @click="verFormActualizar(index)" class="btn btn-warning">Actualizar</button>
+                <button @click="verFormActualizar(index)" class="btn btn-warning">Modificar/Eliminar</button>
                 <!-- Botón para borrar -->
                 <button v-show="mostrarM_E" @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
                 <button v-show="mostrarM_E" @click="ocultarModiEli"  class="btn btn-back">Cancelar</button>
-                <button @click="mostrarModiEli"   class="btn btn-ME">Modificar/Eliminar</button>
+
 
               </span>
             </td>
