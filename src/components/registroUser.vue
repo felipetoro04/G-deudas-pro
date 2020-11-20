@@ -4,6 +4,28 @@
       <h1>Registrate</h1>
       <p>Por favor, completa todos los campos para registrarte.</p>
       <hr>
+      <label for="nombre"><b>Nombre</b></label>
+      <input type="text" placeholder="Ingresa tu nombre completo" name="nombre" required>
+
+
+      <label for="tipoDoc"><b>Selecccione Tipo Documento</b></label><br>
+      <select type="submit"  name="tipoDoc" required>
+        <option value="CedulaIdentidad">Cedula de Identidad</option>
+        <option value="Pasaporte">Pasaporte</option>
+      </select><br>
+      <label for="numeroDoc"><b>Numero de Documento</b></label>
+      <input type="text" placeholder="Ingresa Numero de Documento" name="numeroDoc" required>
+
+      <label for="tipoSexo"><b>Selecccione Sexo</b></label><br>
+      <select type="submit"  name="tipoSexo" required>
+        <option value="Masculino">Masculino</option>
+        <option value="Femenino">Femenino</option>
+        <option value="Otro">Otro</option>
+      </select><br>
+
+      <label for="edad"><b>Edad</b></label><br>
+      <input type="number" placeholder="Ingresa edad" name="edad" required><br>
+
 
       <label for="email"><b>Correo Electronico</b></label>
       <input type="text" placeholder="Ingresa Corre Electronico" name="email" required>
@@ -14,11 +36,7 @@
       <label for="psw-repeat"><b>Repite Password</b></label>
       <input type="password" placeholder="Repite Password" name="psw-repeat" required>
 
-      <label>
-        <input type="checkbox" checked="checked" name="remember" style="margin-bottom:15px"> Remember me
-      </label>
 
-      <p>By creating an account you agree to our <a href="#" style="color:dodgerblue">Terms & Privacy</a>.</p>
 
       <div class="clearfix">
         <router-link to="/login"><button type="button" class="cancelbtn">Cancel</button></router-link>
@@ -40,6 +58,14 @@ name: "registroUser"
 
 /* Full-width input fields */
 input[type=text], input[type=password] {
+  width: 100%;
+  padding: 15px;
+  margin: 5px 0 22px 0;
+  display: inline-block;
+  border: none;
+  background: #f1f1f1;
+}
+select {
   width: 100%;
   padding: 15px;
   margin: 5px 0 22px 0;

@@ -1,8 +1,8 @@
 <template>
   <div>
-  <barra-nav :funcion="this.mostrarParrafo"/>
+  <barra-nav :funcion="this.mostrarCreacion"/>
   <div id="creacionBoleta" class="container">
-         <section class="form" v-show="mostrar">
+         <section class="form" v-show="mostrarCR">
         <form action="" class="text-center">
           <label><b>Ingresa Institucion</b></label><br>
           <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion" name="Institucion"><br>
@@ -21,7 +21,7 @@
 
           </select><br>
           <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
-          <input  @click="ocultarParrafo" type="button" value="Cancelar" class="btn btn-success">
+          <input  @click="ocultarCreacion" type="button" value="Cancelar" class="btn btn-success">
         </form>
       </section>
     <section class="data">
@@ -92,17 +92,21 @@
                 {{boleta.Estado}}
               </span>
             </td>
+
+
             <td>
               <!-- Botón para guardar la información actualizada -->
               <span v-if="formActualizar && idActualizar == index">
                 <button @click="guardarActualizacion(index)" class="btn btn-success">Guardar</button>
                 <button @click="CancelarButton(index)" class="btn btn-danger">Cancelar</button>
               </span>
-              <span v-else>
+              <span v-else >
                 <!-- Botón para mostrar el formulario de actualizar -->
-                <button @click="verFormActualizar(index)" class="btn btn-warning">Actualizar</button>
+                <button v-show="mostrarM_E" @click="verFormActualizar(index)" class="btn btn-warning">Actualizar</button>
                 <!-- Botón para borrar -->
-                <button @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
+                <button v-show="mostrarM_E" @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
+                <button v-show="mostrarM_E" @click="ocultarModiEli"  class="btn btn-back">Cancelar</button>
+                <button @click="mostrarModiEli"   class="btn btn-ME">Modificar/Eliminar</button>
 
               </span>
             </td>
@@ -139,7 +143,8 @@ export default {
       FechaEActualizar: '',
       FechaVActualizar: '',
       EstadoActualizar: '',
-      mostrar:false,
+      mostrarCR:false,
+      mostrarM_E:false,
     };
   },
   methods: {
@@ -190,11 +195,17 @@ export default {
     CancelarButton: function () {
       this.formActualizar = false;
     },
-    mostrarParrafo(){
-      this.mostrar = true
+    mostrarCreacion(){
+      this.mostrarCR = true
     },
-    ocultarParrafo(){
-      this.mostrar = false
+    ocultarCreacion(){
+      this.mostrarCR = false
+    },
+    mostrarModiEli(){
+      this.mostrarM_E = true
+    },
+    ocultarModiEli(){
+      this.mostrarM_E = false
     },
   }
 }

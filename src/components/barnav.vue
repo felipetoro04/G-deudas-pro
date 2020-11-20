@@ -6,7 +6,7 @@
       <li><router-link to="/Politicas_de_privacidad"><button>Politicas de Privacidad</button></router-link></li>
       </ul></li>
       <li><router-link to="/home"><button @click="funcion()">Creacion de Boleta</button></router-link></li>
-         <li><router-link to="/Consultas"><button>Consultas sobre Boletas</button></router-link></li>
+      <li><router-link to="/Consultas"><button>Consultas sobre Boletas</button></router-link></li>
       <li><router-link to="/login"><button>Cerrar sesion</button></router-link></li>
     </ul></nav>
 
