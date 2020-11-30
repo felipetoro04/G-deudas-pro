@@ -18,7 +18,6 @@
           <select v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado">
             <option value="PorPagar">Por Pagar</option>
             <option value="Atrasada">Atrasada</option>
-
           </select><br>
           <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
           <input  @click="ocultarCreacion" type="button" value="Cancelar" class="btn btn-success">
@@ -102,9 +101,9 @@
               </span>
               <span v-else >
                 <!-- Botón para mostrar el formulario de actualizar -->
-                <button @click="verFormActualizar(index)" class="btn btn-warning">Modificar/Eliminar</button>
+                <button @click="verFormActualizar(index)" class="btn btn-warning">Modificar</button>
                 <!-- Botón para borrar -->
-                <button v-show="mostrarM_E" @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
+                <button v-show="mostrarModiEli" @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
                 <button v-show="mostrarM_E" @click="ocultarModiEli"  class="btn btn-back">Cancelar</button>
 
 

@@ -1,11 +1,21 @@
 <template>
   <div><barra-nav></barra-nav>
-
+ <div id = "selector">
+   <h1>Seleccione su parametro de busqueda</h1>
+   <select v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Parametro de busqueda">
+     <option>Institucion</option>
+     <option>Estado de Boleta</option>
+     <option>Numero de boleta</option>
+   </select><br>
+ </div>
   <div id="cover">
       <form method="get" action="">
       <div class="tb">
-        <div class="td"><input type="text" placeholder="Buscar" required></div>
-         <div class="td" id="s-cover">
+
+        <div class="td">
+          <input type="text" placeholder="Buscar" required>
+          </div>
+        <div class="td" id="s-cover">
           <button type="submit">
             <div id="s-circle"></div>
             <span></span>
@@ -30,11 +40,18 @@ name: "consultas",
 </script>
 
 <style scoped>
+#selector{
+  text-align: center;
+  padding-top: 80px;
+}
+
 *
 {
   outline: none;
 }
-
+select{
+  text-align: center;
+}
 html, body
 {
   height: 100%;
