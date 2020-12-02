@@ -37,8 +37,6 @@
         <button @click="OcultarModificar" type="button" class="cancelbtn" >Cancelar</button>
         <button @click="OcultarModificar" type="submit" class="signupbtn">Guardar</button>
 
-
-
         </div>
        </div>
     <div id="eliminar" v-show="mostrarEliminar">
