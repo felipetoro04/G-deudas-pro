@@ -16,7 +16,7 @@
           <input v-model="FechaV" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Vencimiento"><br>
           <label><b>Selecciona Estado</b></label><br>
           <select v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado">
-            <option value="PorPagar">Por Pagar</option>
+            <option value="Por Pagar">Por Pagar</option>
             <option value="Atrasada">Atrasada</option>
           </select><br>
           <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">

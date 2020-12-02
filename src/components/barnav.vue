@@ -30,8 +30,9 @@ export default {
   margin:0;
   padding:0;
   box-sizing:border-box;
-  font-size:0;
+  font-family: "arial", serif;
   text-align: center;
+
 }
 #bar nav button{
   text-align: center;
