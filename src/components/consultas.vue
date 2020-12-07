@@ -1,30 +1,46 @@
 <template>
-  <div><barra-nav></barra-nav>
- <div id = "selector">
-   <h1>Seleccione su parametro de busqueda</h1>
-   <select v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Parametro de busqueda">
-     <option>Institucion</option>
-     <option>Estado de Boleta</option>
-     <option>Numero de boleta</option>
-   </select><br>
- </div>
-  <div id="cover">
-      <form method="get" action="">
-      <div class="tb">
+  <div>
+    <barra-nav></barra-nav>
+    <div id="vertical">
+      <ul id="subnav" class="metro-nav metro-nav-vertical">
+        <li><a href="#" @click="mostrarConsultasUsuariosVerdadero">Consultas Sobre Usuarios</a></li
+        ><li><a href="#" @click="mostrarConsultasBoletasVerdadero">Consultas Sobre Boletas</a></li>
+      </ul>
+    </div>
+    <div id="Conuser" v-show="mostrarConsultasUsuarios">
+      <ul>
+        <li><button>CANTIDAD DE USUARIOS LOGEADOS HOY</button></li>
+        <li><button>PROMEDIO DE BOLETAS POR USUARIOS</button></li>
+      </ul>
 
-        <div class="td">
-          <input type="text" placeholder="Buscar" required>
+    </div>
+    <div id="Condbol" v-show="mostrarConsultasBoletas">
+    <div id = "selector">
+      <h1>Seleccione su parametro de busqueda</h1>
+      <select v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Parametro de busqueda">
+        <option>Institucion</option>
+        <option>Estado de Boleta</option>
+        <option>Numero de boleta</option>
+        <option>Mes de Emision</option>
+        <option>Mes de Vencimiento</option>
+      </select><br>
+    </div>
+      <div id="cover">
+        <form method="get" action="">
+          <div class="tb">
+            <div class="td">
+              <input type="text" placeholder="Buscar" required>
+            </div>
+            <div class="td" id="s-cover">
+              <button type="submit">
+                <div id="s-circle"></div>
+                <span></span>
+              </button>
+            </div>
           </div>
-        <div class="td" id="s-cover">
-          <button type="submit">
-            <div id="s-circle"></div>
-            <span></span>
-          </button>
-        </div>
+        </form>
       </div>
-    </form>
-
-  </div>
+    </div>
   </div>
 
 
@@ -35,11 +51,157 @@
 import BarraNav from "@/components/barnav";
 export default {
 name: "consultas",
-  components: {BarraNav}
+  components: {BarraNav},
+  data() {
+    return {
+      mostrarConsultasUsuarios: false,
+      mostrarConsultasBoletas: false,
+    };
+  },
+  methods: {
+    mostrarConsultasUsuariosVerdadero() {
+      this.mostrarConsultasUsuarios = true,
+          this.mostrarConsultasBoletas = false
+    },
+    OcultarConsultaUsuario() {
+      this.mostrarConsultasUsuarios = false
+    },
+    mostrarConsultasBoletasVerdadero() {
+      this.mostrarConsultasBoletas = true,
+          this.mostrarConsultasUsuarios = false
+    },
+    OcultarConsultaBoleta() {
+      this.mostrarConsultasBoletas = true
+    },
+  }
 }
 </script>
 
 <style scoped>
+/*Barra lateral*/
+.metro-nav {
+  box-shadow: 0 5px 15px #193047;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  float: left;
+  text-transform: uppercase;
+  font-family: "arial", serif;
+  font-size: 10px;
+
+}
+.metro-nav li a{
+  display: inline-block;
+  *display: inline;
+  zoom: 1;
+}
+.metro-nav li a {
+  display: block;
+  padding: 10px;
+  transition: all 0.1s;
+}
+
+.metro-nav.metro-nav-vertical li  a{
+  display: block;
+}
+
+.metro-list li a {
+  padding: 8px 12px;
+}
+
+
+.metro-nav {
+  background: deepskyblue;
+  width: 80%;
+  margin: 20px auto;
+}
+.metro-nav li a{
+  margin: 0px;
+}
+.metro-nav li a {
+  color: Black;
+  text-decoration: none;
+  padding: 20px 25px;
+  margin: 0;
+}
+.metro-nav li a:hover{
+  color: white;
+  background: mediumslateblue;
+  box-shadow: 0px 2px 10px 5px deepskyblue;
+}
+
+.metro-nav.metro-nav-vertical {
+  width: 200px;
+}
+
+
+.metro-pricing-table li a{
+  list-style: none;
+}
+
+.metro-pricing-table .metro-pricing-pricerow td {
+  padding: 20px 0;
+  text-align: left;
+}
+/*Consultas sobre Usuarios*/
+#Conuser{
+    padding-left: 400px;
+  padding-top: 100px;
+
+}
+#Conuser button {
+  text-align: center;
+  text-transform: uppercase;
+  cursor: pointer;
+  font-size: 10px;
+  background-color: mediumslateblue;
+  border: none;
+  color: #fff;
+  padding: 20px;
+  width: 200px;
+  transition-duration: 0.4s;
+  overflow: hidden;
+  box-shadow: 0 5px 15px #193047;
+  border-radius: 4px;
+}
+
+#Conuser li{
+  display:inline-block;
+  border:none;
+  text-align:center;
+  }
+
+#Conuser button:hover{
+  background: #fff;
+  box-shadow: 0px 2px 10px 5px #1abc9c;
+  color: #000;
+  cursor: pointer;
+}
+#Conuser button:after{
+  content: "";
+  background: #1abc9c;
+  display: block;
+  position: absolute;
+  padding-top: 300%;
+  padding-left: 350%;
+  margin-left: -20px !important;
+  margin-top: -120%;
+  opacity: 0;
+  transition: all 0.8s
+
+}
+#Conuser button:active:after{
+  padding: 0;
+  margin: 0;
+  opacity: 1;
+  transition: 0s
+}
+#Conuser button:focus{outline:0;}
+
+
+/*Consultas sobre boletas*/
+
+
 #selector{
   text-align: center;
   padding-top: 80px;
