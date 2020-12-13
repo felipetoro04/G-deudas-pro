@@ -26,6 +26,11 @@
       <label for="edad"><b>Edad</b></label><br>
       <input type="number" placeholder="Ingresa edad" name="edad" required><br>
 
+      <label for="perfil"><b>Selecccione Perfil de usuario</b></label><br>
+      <select type="submit"  name="perfil" required>
+        <option value="Usuario">Usuario</option>
+        <option value="Administrador">Administrador</option>
+      </select><br>
 
       <label for="email"><b>Correo Electronico</b></label>
       <input type="text" placeholder="Ingresa Corre Electronico" name="email" required>
