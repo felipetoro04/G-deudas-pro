@@ -1,316 +1,318 @@
 <template>
   <div>
-  <barra-nav :funcion="this.mostrarCreacion"/>
-  <div id="creacionBoleta" class="container">
-         <section class="form" v-show="mostrarCR">
-        <form action="" class="text-center">
-          <label><b>Ingresa Institucion</b></label><br>
-          <input v-model="Institucion" @keyup.enter="creacion" type="text" class="form-control" placeholder="Institucion" name="Institucion"><br>
-          <label><b>Ingresa Numero de Boleta</b></label><br>
-          <input v-model="NumeroBoleta" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Numero de Boleta"><br>
-          <label><b>Ingresa Monto a Cancelar</b></label><br>
-          <input v-model="monto" @keyup.enter="Creacion" type="number" class="form-control" placeholder="Monto a Cancelar"><br>
-          <label><b>Ingresa Fecha de Emisión</b></label><br>
-          <input v-model="FechaE" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Emisión"><br>
-          <label><b>Ingresa Fecha de Vencimiento</b></label><br>
-          <input v-model="FechaV" @keyup.enter="Creacion" type="date" class="form-control" placeholder="Fecha de Vencimiento"><br>
-          <label><b>Selecciona Estado</b></label><br>
-          <select v-model="Estado" @keyup.enter="Creacion" type="text" class="form-control" placeholder="Estado">
-            <option value="Por Pagar">Por Pagar</option>
-            <option value="Atrasada">Atrasada</option>
-          </select><br>
-          <input @click="Creacion" type="button" value="Añadir" class="btn btn-success">
-          <input  @click="ocultarCreacion" type="button" value="Cancelar" class="btn btn-success">
-        </form>
-      </section>
-    <section class="data">
-        <table >
-          <caption>Ultimos Movimientos</caption>
-          <thead>
-          <tr>
-            <th scope="col">id</th>
-            <th scope="col">Institucion</th>
-            <th scope="col">Numero de Boleta</th>
+    <barra-nav :funcion="this.mostrarCreacion"/>
+    <div id='Cuerpo' align="center">
+      <Header></Header>
+      <h1 v-if="hasError">API no disponible.</h1>
 
-            <th scope="col">Monto a Cancelar</th>
-            <th scope="col">Fecha de Emisión</th>
-            <th scope="col">Fecha de Vencimiento</th>
-            <th scope="col">Estado</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr v-for="(boleta,index) in Boletas" :key="index">
-            <td>{{boleta.Id}}</td>
+      <div v-else>
+        <h1 v-if="loading">Cargando Boletas...</h1>
+        <div v-else>
+          <h1>Boletas</h1>
+          <div >
+            <form class="content-data" v-show ="mostrarCR">
+            Institucion:
+            <select v-model="boleta.idInstitucion" required>
+              <option v-for="institucion in instituciones" v-bind:key="institucion.id" v-bind:value="institucion.id" >{{ institucion.nombre }}</option>
+            </select>
+            Numero de Boleta:<input v-model="boleta.numeroBoleta" type="text" required>
+            Fecha de Emision:<input v-model="boleta.fechaEmision" type="date" required>
+            Fecha de Vencimiento:<input v-model="boleta.fechaVencimiento" type="date" required>
+            Monto de Pagar:<input v-model="boleta.montoPagar" type="int" required>
+            Estado de Boleta:
+            <select v-model="boleta.idEstado" required>
+              <option v-for="estado in estados" v-bind:key="estado.id" v-bind:value="estado.id">{{ estado.nombre }}</option>
+            </select>
+            <button class="button-add" @click="addBoleta()">Agregar</button>
+            <button class="button-clean" @click="clean()">Limpiar</button>
+              <button class="button-clean" @click="ocultarCreacion">Cancelar</button>
 
+            </form>
+          </div>
+          <div class="content-table">
+            <table class="blueTable" >
+              <tr>
+                <th>Institucion</th>
+                <th>Numero de Boleta</th>
+                <th>Fecha de Emision</th>
+                <th>Fecha de Vencimiento</th>
+                <th>Monto de Pagar</th>
+                <th>Estado de Boleta</th>
+                <th>Acciones</th>
 
-            <td>
-              <span v-if="formActualizar && idActualizar == index">
-                <input v-model="InstitucionActualizar" type="text" class="form-control">
-              </span>
-              <span v-else>
-                {{boleta.Institucion}}
-              </span>
-            </td>
-            <td>
-              <span v-if="formActualizar && idActualizar == index">
-                <input v-model="NumeroBoletaActualizar" type="text" class="form-control">
-              </span>
-              <span v-else>
-                {{boleta.NumeroBoleta}}
-              </span>
-            </td>
-            <td>
-              <span v-if="formActualizar && idActualizar == index">
-                <input v-model="montoActualizar" type="text" class="form-control">
-              </span>
-              <span v-else>
-                {{boleta.monto}}
-              </span>
-            </td>
-            <td>
-              <span v-if="formActualizar && idActualizar == index">
-                <input v-model="FechaEActualizar" type="text" class="form-control">
-              </span>
-              <span v-else>
-                {{boleta.FechaE}}
-              </span>
-            </td>
-            <td>
-              <span v-if="formActualizar && idActualizar == index">
-                <input v-model="FechaVActualizar" type="text" class="form-control">
-              </span>
-              <span v-else>
-                {{boleta.FechaV}}
-              </span>
-            </td>
-            <td>
-              <span v-if="formActualizar && idActualizar == index">
-                <input v-model="EstadoActualizar" type="text" class="form-control">
-              </span>
-              <span v-else>
-                {{boleta.Estado}}
-              </span>
-            </td>
+              </tr>
+              <tr v-for="boleta in boletas" :key="boleta.id">
+                <td>
+                  {{ obtenerInstitucion(boleta.idInstitucion) }}
+                </td>
+                <td>
+                  {{ boleta.numeroBoleta }}
+                </td>
+                <td>
+                  {{ boleta.fechaEmision }}
+                </td>
+                <td>
+                  {{ boleta.fechaVencimiento }}
+                </td>
+                <td>
+                  {{ boleta.montoPagar }}
+                </td>
+                <td>
+                  {{obtenerEstado(boleta.idEstado) }}
+                </td>
+                <td>
+                  <button class="button-update"  @click="updateBoleta(boleta);mostrarCreacion()">Actualizar</button>
+                  <button class="button-delete" @click="removeBoleta(boleta.id)">Eliminar</button>
 
+                </td>
+              </tr>
+            </table>
 
-            <td>
-              <!-- Botón para guardar la información actualizada -->
-              <span v-if="formActualizar && idActualizar == index">
-                <button @click="guardarActualizacion(index)" class="btn btn-success">Guardar</button>
-                <button @click="CancelarButton(index)" class="btn btn-danger">Cancelar</button>
-              </span>
-              <span v-else >
-                <!-- Botón para mostrar el formulario de actualizar -->
-                <button @click="verFormActualizar(index)" class="btn btn-warning">Modificar</button>
-                <!-- Botón para borrar -->
-                <button v-show="mostrarModiEli" @click="borrarBoleta(index)" class="btn btn-danger">Borrar</button>
-                <button v-show="mostrarM_E" @click="ocultarModiEli"  class="btn btn-back">Cancelar</button>
-
-
-              </span>
-            </td>
-          </tr>
-          </tbody>
-        </table>
-    </section>
+          </div>
+        </div>
+      </div>
     </div>
+
   </div>
 </template>
+
 <script>
 
 import BarraNav from "@/components/barnav";
+import axios from "axios";
+
 export default {
   name: "Cuerpo",
   components: {BarraNav},
   el: '#creacionBoleta',
   data() {
     return {
-      Id: '',
-      Institucion: '',
-      NumeroBoleta: '',
-      monto: '',
-      FechaE: '',
-      FechaV: '',
-      Estado: '',
-      Boletas: [],
-      formActualizar: false,
-      // La posición de tu lista donde te gustaría actualizar
-      idActualizar: -1,
-      InstitucionActualizar: '',
-      NumeroBoletaActualizar: '',
-      montoActualizar: '',
-      FechaEActualizar: '',
-      FechaVActualizar: '',
-      EstadoActualizar: '',
-      mostrarCR:false,
-      mostrarM_E:false,
+      mostrarCR: false,
+      boletas: null,
+      hasError: false,
+      loading: true,
+      boleta: {
+        idInstitucion: null,
+        numeroBoleta: null,
+        fechaEmision: null,
+        fechaVencimiento: null,
+        montoPagar: null,
+        idEstado: null,
+        idUsuario: 1
+      },
+      instituciones: [
+        {
+          id: 1,
+          nombre: "falabella"
+        },
+        {
+          id: 2,
+          nombre: "paris"
+        },
+        {
+          id: 3,
+          nombre: "ripley"
+        }],
+      estados: [
+        {
+          id: 6,
+          nombre: "Por Pagar"
+        },
+        {
+          id: 7,
+          nombre: "Atrasada"
+        }],
+      creacion: true
     };
   },
   methods: {
-    Creacion: function () {
-      this.Boletas.push({
-        Id: +new Date(),
-        Institucion: this.Institucion,
-        NumeroBoleta: this.NumeroBoleta,
-        monto: this.monto,
-        FechaE: this.FechaE,
-        FechaV: this.FechaV,
-        Estado: this.Estado,
-      });
-      this.Institucion = '';
-      this.NumeroBoleta = '';
-      this.monto = '';
-      this.FechaE = '';
-      this.FechaV = '';
-      this.Estado = '';
-    },
-    verFormActualizar: function (boleta_id) {
-      // Antes de mostrar el formulario de actualizar, rellenamos sus campos
-      this.idActualizar = boleta_id;
-      this.InstitucionActualizar = this.Boletas[boleta_id].Institucion;
-      this.NumeroBoletaActualizar = this.Boletas[boleta_id].NumeroBoleta;
-      this.montoActualizar = this.Boletas[boleta_id].monto;
-      this.FechaEActualizar = this.Boletas[boleta_id].FechaE;
-      this.FechaVActualizar = this.Boletas[boleta_id].FechaV;
-      this.EstadoActualizar = this.Boletas[boleta_id].Estado;
-      // Mostramos el formulario
-      this.formActualizar = true;
-    },
-    borrarBoleta: function (boleta_id) {
-      // Borramos de la lista
-      this.Boletas.splice(boleta_id, 1);
-    },
-    guardarActualizacion: function (boleta_id) {
-      // Ocultamos nuestro formulario de actualizar
-      this.formActualizar = false;
-      // Actualizamos los datos
-      this.Boletas[boleta_id].Institucion = this.InstitucionActualizar;
-      this.Boletas[boleta_id].NumeroBoleta = this.NumeroBoletaActualizar;
-      this.Boletas[boleta_id].monto = this.montoActualizar;
-      this.Boletas[boleta_id].FechaE = this.FechaEActualizar;
-      this.Boletas[boleta_id].FechaV = this.FechaVActualizar;
-      this.Boletas[boleta_id].Estado = this.EstadoActualizar;
-    },
-    CancelarButton: function () {
-      this.formActualizar = false;
-    },
-    mostrarCreacion(){
-      this.mostrarCR = true
-    },
-    ocultarCreacion(){
+    ocultarCreacion() {
       this.mostrarCR = false
     },
-    mostrarModiEli(){
-      this.mostrarM_E = true
+    mostrarCreacion() {
+      this.mostrarCR = true
     },
-    ocultarModiEli(){
-      this.mostrarM_E = false
+    removeBoleta: function (id) {
+      axios.delete('http://127.0.0.1:8000/api/boletas/' + id)
+          .then(() => {
+            this.boletas = this.boletas.filter(boleta => boleta.id !== id);
+          });
     },
-  }
+    addBoleta() {
+
+      if (this.creacion) {
+
+
+        axios.post('http://127.0.0.1:8000/api/boletas/', this.boleta)
+            .then(response => {
+              this.boletas.push(response.data.data);
+              alert("boleta Añadida")
+              this.clean();
+            })
+      } else {
+
+
+        axios.put('http://127.0.0.1:8000/api/boletas/' + this.boleta.id, this.boleta)
+            .then(response => {
+              this.boletas.push(response.data.data);
+              alert("Boleta Actualizada")
+            })
+        this.creacion = true;
+        this.clean();
+      }
+
+
+    },
+
+    updateBoleta(boleta) {
+      this.boleta = boleta;
+      this.creacion = false;
+    },
+    clean() {
+      this.boleta = {
+        idInstitucion: null,
+        numeroBoleta: null,
+        fechaEmision: null,
+        fechaVencimiento: null,
+        montoPagar: null,
+        idEstado: null,
+        idUsuario: 1
+      };
+      this.creacion = true;
+    },
+    obtenerInstitucion( id ) {
+
+
+      for (const key in this.instituciones) {
+            if (this.instituciones[key].id.toString() === id.toString()){
+              return this.instituciones[key].nombre;
+            }
+      }
+
+      return 'No hay informacion'
+
+
+      //return instituciones.filter(institucion => institucion.id === id)[0].nombre;
+    },
+    obtenerEstado( id ) {
+
+      for (const key in this.estados) {
+        if (this.estados[key].id.toString() === id.toString()){
+          return this.estados[key].nombre;
+        }
+      }
+
+      return 'No hay informacion'
+
+    },
+
+
+  },
+
+  mounted() {
+    axios
+        .get('http://127.0.0.1:8000/api/boletas')
+        .then(response => (this.boletas = response.data.data))
+        // eslint-disable-next-line no-unused-vars
+        .catch(error => this.hasError = true)
+        .finally(() => this.loading = false)
+  },
+
 }
 </script>
+
 <style>
-.form{
-  font-family: "Open Sans", sans-serif;
-  text-align: center;
-  margin: .5em 0 .75em;
-  }
-.form label,input,select,option{
-  text-align: center;
-  line-height: 1.25;
-  padding: .625em;
-  width: 30%;
-  border-bottom: 3px solid #ddd;
-   margin-bottom: .625em
 
+.content-data {
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 20px;
+  display: grid;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
-#creacionBoleta{
-  padding-top: 70px;
+.content-table{
+  -webkit-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 2px 2px 5px 0px rgba(0,0,0,0.75);
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 20px;
 }
-table {
-  font-family: "Open Sans", sans-serif;
-  line-height: 1.25;
-  border: 1px solid #ccc;
-  border-collapse: collapse;
-  margin: 0;
-  padding: 0;
+
+table.blueTable {
+  border: 1px solid #1C6EA4;
+  background-color: #EEEEEE;
   width: 100%;
-  table-layout: fixed;
-
+  text-align: left;
+  border-collapse: collapse;
+}
+table.blueTable td, table.blueTable th {
+  border: 1px solid #AAAAAA;
+  padding: 3px 2px;
+}
+table.blueTable tbody td {
+  font-size: 13px;
+}
+table.blueTable tr:nth-child(even) {
+  background: #c0bae0;
+}
+table.blueTable thead {
+  background: #1C6EA4;
+  background: -moz-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: -webkit-linear-gradient(top, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  background: linear-gradient(to bottom, #5592bb 0%, #327cad 66%, #1C6EA4 100%);
+  border-bottom: 2px solid #444444;
+}
+table.blueTable thead th {
+  font-size: 15px;
+  font-weight: bold;
+  color: #FFFFFF;
+  border-left: 2px solid #D0E4F5;
+}
+table.blueTable thead th:first-child {
+  border-left: none;
 }
 
-table caption {
-  font-size: 1.5em;
-  margin: .5em 0 .75em;
+table.blueTable tfoot {
+  font-size: 14px;
+  font-weight: bold;
+  color: #FFFFFF;
+  background: #D0E4F5;
+  background: -moz-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: -webkit-linear-gradient(top, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  background: linear-gradient(to bottom, #dcebf7 0%, #d4e6f6 66%, #D0E4F5 100%);
+  border-top: 2px solid #444444;
+}
+table.blueTable tfoot td {
+  font-size: 14px;
+}
+table.blueTable tfoot .links {
+  text-align: right;
+}
+table.blueTable tfoot .links a{
+  display: inline-block;
+  background: #1C6EA4;
+  color: #FFFFFF;
+  padding: 2px 8px;
+  border-radius: 5px;
 }
 
-table tr {
-  background-color: #f8f8f8;
-  border: 1px solid #ddd;
-  padding: .35em;
+.button-add{
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
-
-table th,
-table td {
-  padding: .625em;
-  text-align: center;
+.button-clean{
+  margin-bottom: 5px;
 }
-
-table th {
-  font-size: .85em;
-  letter-spacing: .1em;
-  text-transform: uppercase;
+.button-update{
+  margin-right: 5px;
 }
-
-@media screen and (max-width: 600px) {
-  table {
-    border: 0;
-  }
-
-  table caption {
-    font-size: 1.3em;
-  }
-
-  table thead {
-    border: none;
-    clip: rect(0 0 0 0);
-    height: 1px;
-    margin: -1px;
-    overflow: hidden;
-    padding: 0;
-    position: absolute;
-    width: 1px;
-  }
-
-  table tr {
-    border-bottom: 3px solid #ddd;
-    display: block;
-    margin-bottom: .625em;
-  }
-
-  table td {
-    border-bottom: 1px solid #ddd;
-    display: block;
-    font-size: .8em;
-    text-align: right;
-  }
-
-  table td::before {
-    /*
-    * aria-label has no advantage, it won't be read inside a table
-    content: attr(aria-label);
-    */
-    content: attr(data-label);
-    float: left;
-    font-weight: bold;
-    text-transform: uppercase;
-  }
-
-  table td:last-child {
-    border-bottom: 0;
-  }
+.button-delete{
+  margin-right: 5px;
 }
-
-
 </style>
