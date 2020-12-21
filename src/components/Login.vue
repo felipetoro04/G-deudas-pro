@@ -2,18 +2,19 @@
 
 
   <div id="login">
-    <form method="post">
+    <form method="post"  v-on:submit.prevent="login()">
       <div class="imgcontainer">
         <img src="../assets/images/logo.png" alt="login" class="avatar">
       </div>
 
       <div class="container">
-        <label for="uname"><b>Usuario</b></label>
-        <input type="text" placeholder="Ingresa Usuario" name="uname" required>
+        <label><b>Usuario</b></label>
+        <input type="text" v-model="usuario.email" placeholder="Ingresa Usuario" required>
 
-        <label for="psw"><b>Contrasena</b></label>
-        <input type="password" placeholder="Ingresa Contrasena" name="psw" required>
-        <router-link to="/home"><button type="submit">Login</button></router-link>
+        <label><b>Contrasena</b></label>
+        <input type="password" v-model="usuario.contrasenia" placeholder="Ingresa Contrasena" required>
+
+        <button type="submit">Login</button>
 
         <label>
           <input type="checkbox" checked="checked" name="remember"> Recordar
@@ -31,9 +32,41 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: 'Login',
+  data() {
+    return {
+      usuario: {
+        email: null,
+        contrasenia: null,
+      },
+
+
+    }
+  },
+  methods: {
+    login() {
+      axios.post('http://127.0.0.1:8000/api/auth/', this.usuario)
+          .then(response => {
+            // this.usuarios.push(response.data.data)
+            console.log(
+                response
+            )
+            if(response.status === 200) {
+              this.$router.push('home')
+              localStorage.setItem('USER_EMAIL', response.data.email)
+              localStorage.setItem('USER_ID', response.data.id)
+            }else {
+              alert("usaurio o password incorrecto")
+            }
+
+          })
+    },
+  }
 }
+
 </script>
 <style>
 /* Bordered form */

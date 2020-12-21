@@ -8,7 +8,7 @@
       <li><router-link to="/home"><button @click="funcion()">Creacion de Boleta</button></router-link></li>
       <li><router-link to="/Consultas"><button>Consultas</button></router-link></li>
       <li><router-link to="/Configuracion"><button>Configuracion</button></router-link></li>
-      <li><router-link to="/login"><button>Cerrar sesion</button></router-link></li>
+      <li><button @click="logout()">Cerrar sesion</button></li>
     </ul></nav>
 
   </div>
@@ -20,6 +20,12 @@ export default {
   name: "BarraNav",
   props: {
     funcion: Function
+  },
+  methods: {
+    logout() {
+      this.$router.push('login')
+     localStorage.clear()
+    },
   }
 }
 

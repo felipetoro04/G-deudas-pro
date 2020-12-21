@@ -2,50 +2,51 @@
   <div>
     <barra-nav></barra-nav>
     <div id="vertical">
-    <ul id="subnav" class="metro-nav metro-nav-vertical">
-      <li><a href="#" @click="mostrarModificarVerdadero" >Modificar Usuario</a></li
-    ><li><a href="#" @click="mostrarEliminarVerdadero" >Eliminar Usuario</a></li>
-    </ul>
-  </div>
+      <ul id="subnav" class="metro-nav metro-nav-vertical">
+        <li><a href="#" @click="mostrarModificarVerdadero">Modificar Usuario</a></li
+        >
+        <li><a href="#" @click="mostrarEliminarVerdadero">Eliminar Usuario</a></li>
+      </ul>
+    </div>
     <div id="modificar" v-show="mostrarModificar">
-      <div class="container">
+      <form v-on:submit.prevent="updateUser()">
+        <div class="container">
           <h1>Modificar datos usuario</h1>
           <p>Modificar datos de usuario y para guadar cambios presione boton "Guardar"</p>
 
-          <label for="nombre"><b>Nombre</b></label>
-          <input type="text" placeholder="Ingresa tu nombre completo" name="nombre" required>
+          <label><b>Nombre</b></label>
+          <input v-model="usuario.nombre" type="text" placeholder="Ingresa tu nombre completo" required>
 
-          <label for="tipoSexo"><b>Selecccione Sexo</b></label><br>
-          <select type="submit"  name="tipoSexo" required>
-            <option value="Masculino">Masculino</option>
-            <option value="Femenino">Femenino</option>
-            <option value="Otro">Otro</option>
+          <label><b>Selecccione Sexo</b></label><br>
+          <select v-model="usuario.idTipoSex" required>
+            <option v-for="tipoSexo in tipoSexos" v-bind:key="tipoSexo.id" v-bind:value="tipoSexo.id">{{
+                tipoSexo.nombre
+              }}
+            </option>
           </select><br>
 
-          <label for="edad"><b>Edad</b></label><br>
-          <input type="number" placeholder="Ingresa edad" name="edad" required><br>
+          <label><b>Edad</b></label><br>
+          <input v-model="usuario.edad" type="number" placeholder="Ingresa edad" required><br>
+          <hr>
+          <label><b>Correo Electronico</b></label>
+          <input v-model="usuario.email" type="text" placeholder="Ingresa Corre Electronico" required>
 
+          <label><b>Password</b></label>
+          <input v-model="usuario.contrasenia" type="password" placeholder="Ingresa Password" required>
 
-          <label for="email"><b>Correo Electronico</b></label>
-          <input type="text" placeholder="Ingresa Corre Electronico" name="email" required>
-
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Ingresa Password" name="psw" required>
-
-          <label for="psw-repeat"><b>Repite Password</b></label>
-          <input type="password" placeholder="Repite Password" name="psw-repeat" required>
-        <button @click="OcultarModificar" type="button" class="cancelbtn" >Cancelar</button>
-        <button @click="OcultarModificar" type="submit" class="signupbtn">Guardar</button>
-
+          <button type="submit" class="signupbtn">Guardar</button>
         </div>
-       </div>
+      </form>
+    </div>
     <div id="eliminar" v-show="mostrarEliminar">
       <h1>Eliminar cuenta usuario</h1>
       <p>Para eliminar usuario ingrese el dato solicitado y persione boton "Eliminar"</p>
-      <label ><b>Para eliminar usuario ingrese Contrasenia</b></label>
-      <input type="password" placeholder="Ingrese Contrasenia" name="psw-repeat" required>
+      <label><b>Para eliminar usuario ingrese Contrasenia</b></label>
+      <input v-model="password" type="password" placeholder="Ingrese Contrasenia" name="psw-repeat" required>
       <button @click="OcultarEliminar" type="button" class="cancelbtn">Cancelar</button>
-      <router-link to="/login"><button type="submit" class="signupbtn">Eliminar</button></router-link>
+
+        <button type="submit" @click="deleteUser()">Eliminar</button>
+
 
     </div>
   </div>
@@ -54,14 +55,39 @@
 
 <script>
 import BarraNav from "@/components/barnav";
+import axios from "axios";
+
 export default {
   name: "configuracion",
   components: {BarraNav},
   el: '#vertical',
   data() {
     return {
+      password: null,
       mostrarModificar: false,
       mostrarEliminar: false,
+      usuario: {
+        idTipoDoc: null,
+        numeroDoc: null,
+        nombre: null,
+        idTipoSex: null,
+        edad: null,
+        email: null,
+        contrasenia: null,
+        idPerfil: null
+      }, tipoSexos: [
+        {
+          id: 3,
+          nombre: "Masculino"
+        },
+        {
+          id: 4,
+          nombre: "Femenino"
+        },
+        {
+          id: 5,
+          nombre: "Otro"
+        }],
     };
   },
   methods: {
@@ -79,6 +105,40 @@ export default {
     OcultarEliminar() {
       this.mostrarEliminar = true
     },
+
+    deleteUser() {
+        if(this.password === this.usuario.contrasenia) {
+          axios.delete('http://127.0.0.1:8000/api/usuarios/' + this.usuario.id)
+              .then( () => {
+                localStorage.clear()
+                alert("usaurio eliminado ")
+                this.$router.push('login')
+              })
+        }else {
+          alert("la contrasenia no es valida")
+        }
+    },
+    updateUser() {
+      console.log(this.usuario)
+
+
+      axios.put('http://127.0.0.1:8000/api/usuarios/' + this.usuario.id, this.usuario)
+          .then(response => {
+            this.boletas.push(response.data.data);
+            alert("usaurio actualizado ")
+          })
+
+    },
+  },
+  mounted() {
+    axios.get('http://127.0.0.1:8000/api/usuarios/' + localStorage.getItem("USER_ID"))
+        .then(response => {
+
+
+          this.usuario = response.data.data;
+
+
+        })
   }
 }
 </script>
@@ -97,18 +157,20 @@ export default {
   font-size: 10px;
 
 }
-.metro-nav li a{
+
+.metro-nav li a {
   display: inline-block;
   *display: inline;
   zoom: 1;
 }
+
 .metro-nav li a {
   display: block;
   padding: 10px;
   transition: all 0.1s;
 }
 
-.metro-nav.metro-nav-vertical li  a{
+.metro-nav.metro-nav-vertical li a {
   display: block;
 }
 
@@ -122,16 +184,19 @@ export default {
   width: 80%;
   margin: 20px auto;
 }
-.metro-nav li a{
+
+.metro-nav li a {
   margin: 0px;
 }
+
 .metro-nav li a {
   color: Black;
   text-decoration: none;
   padding: 20px 25px;
   margin: 0;
 }
-.metro-nav li a:hover{
+
+.metro-nav li a:hover {
   color: white;
   background: mediumslateblue;
   box-shadow: 0px 2px 10px 5px deepskyblue;
@@ -142,7 +207,7 @@ export default {
 }
 
 
-.metro-pricing-table li a{
+.metro-pricing-table li a {
   list-style: none;
 }
 
@@ -152,12 +217,13 @@ export default {
 }
 
 /* Modificar*/
-#modificar{
+#modificar {
   font-family: "arial", serif;
   text-align: center;
   padding-left: 250px;
 
 }
+
 input[type=text], input[type=password] {
   width: 100%;
   padding: 15px;
@@ -166,6 +232,7 @@ input[type=text], input[type=password] {
   border: none;
   background: #f1f1f1;
 }
+
 select {
   width: 100%;
   padding: 15px;
@@ -198,7 +265,7 @@ button {
 }
 
 button:hover {
-  opacity:1;
+  opacity: 1;
 }
 
 /* Extra styles for the cancel button */
@@ -217,7 +284,7 @@ button:hover {
   padding: 16px;
 }
 
-#eliminar{
+#eliminar {
   font-family: "arial", serif;
   text-align: center;
   padding-left: 250px;

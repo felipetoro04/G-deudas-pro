@@ -1,6 +1,10 @@
 <template>
   <div>
+
     <barra-nav :funcion="this.mostrarCreacion"/>
+    <div  class="content-table" style="margin-top: 20px">
+      Bienvenido : {{userEmail}}
+    </div>
     <div id='Cuerpo' align="center">
       <Header></Header>
       <h1 v-if="hasError">API no disponible.</h1>
@@ -9,6 +13,7 @@
         <h1 v-if="loading">Cargando Boletas...</h1>
         <div v-else>
           <h1>Boletas</h1>
+
           <div >
             <form class="content-data" v-show ="mostrarCR">
             Institucion:
@@ -18,7 +23,7 @@
             Numero de Boleta:<input v-model="boleta.numeroBoleta" type="text" required>
             Fecha de Emision:<input v-model="boleta.fechaEmision" type="date" required>
             Fecha de Vencimiento:<input v-model="boleta.fechaVencimiento" type="date" required>
-            Monto de Pagar:<input v-model="boleta.montoPagar" type="int" required>
+            Monto a Pagar:<input v-model="boleta.montoPagar" type="int" required>
             Estado de Boleta:
             <select v-model="boleta.idEstado" required>
               <option v-for="estado in estados" v-bind:key="estado.id" v-bind:value="estado.id">{{ estado.nombre }}</option>
@@ -100,6 +105,7 @@ export default {
         idEstado: null,
         idUsuario: 1
       },
+      userEmail: null,
       instituciones: [
         {
           id: 1,
@@ -216,7 +222,9 @@ export default {
         // eslint-disable-next-line no-unused-vars
         .catch(error => this.hasError = true)
         .finally(() => this.loading = false)
-  },
+
+         this.userEmail = localStorage.getItem('USER_EMAIL')
+  }
 
 }
 </script>
