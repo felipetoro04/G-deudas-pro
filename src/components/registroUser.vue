@@ -108,6 +108,7 @@ export default {
                 console.log(
                     response
                 )
+                alert("Usuario Creado")
                 this.$router.push('login')
 
               })
